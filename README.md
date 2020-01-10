@@ -38,3 +38,26 @@ The json representation of a player should be the following, where each field na
     ...
 }
 ```
+
+Additional Requirements:
+
+The service should expose two additional REST API endpoint:
+
+PUT /api/players/{playerID}/weight - increments a player's weight by 1
+PUT /api/players/{playerID}/height - increments a player's height by 1
+The request and response payloads of these endpoints can be an empty JSON dictionary: {}
+
+Rate Limiting::
+
+The service should expose an additional REST API endpoint:
+
+POST /api/sleep - sleeps for the specified duration in seconds, then returns.
+Example Request Payload:
+
+{
+    "duration": 10
+}
+Response Payload:
+
+{}
+The API should only run a maximum of 5 concurrent requests at a time. If a sixth request is made while there are already 5 in-flight requests yet to be completed, the API should block until one of the in-flight requests complete, before executing the sleep.
